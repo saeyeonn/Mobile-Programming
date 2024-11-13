@@ -1,20 +1,11 @@
-package com.saeyeon.portfolio
+package com.saeyeon.portfolio.ui.screens.activities
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -25,9 +16,10 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.saeyeon.portfolio.data.model.Activity
+import com.saeyeon.portfolio.ui.components.card.ActivityCard
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -57,7 +49,7 @@ fun ActivitiesScreen(navController: NavController) {
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             item {
-                ActivityCategoryCard(
+                ActivityCard(
                     title = "Volunteering",
                     items = listOf(
                         Activity(
@@ -77,7 +69,7 @@ fun ActivitiesScreen(navController: NavController) {
             }
 
             item {
-                ActivityCategoryCard(
+                ActivityCard(
                     title = "Interests",
                     items = listOf(
                         Activity(
@@ -97,7 +89,7 @@ fun ActivitiesScreen(navController: NavController) {
             }
 
             item {
-                ActivityCategoryCard(
+                ActivityCard(
                     title = "Hobbies",
                     items = listOf(
                         Activity(
@@ -120,70 +112,4 @@ fun ActivitiesScreen(navController: NavController) {
 }
 
 
-data class Activity(
-    val title: String,
-    val description: String,
-    val period: String,
-    val icon: ImageVector
-)
 
-@Composable
-fun ActivityCategoryCard(
-    title: String,
-    items: List<Activity>
-) {
-    Card(
-        modifier = Modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant
-        )
-    ) {
-        Column(
-            modifier = Modifier.padding(16.dp)
-        ) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.primary
-            )
-            Spacer(modifier = Modifier.height(12.dp))
-            items.forEach { activity ->
-                ActivityItem(activity)
-                if (activity != items.last()) {
-                    Divider(modifier = Modifier.padding(vertical = 8.dp))
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun ActivityItem(activity: Activity) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        Icon(
-            imageVector = activity.icon,
-            contentDescription = null,
-            tint = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.size(24.dp)
-        )
-        Column {
-            Text(
-                text = activity.title,
-                style = MaterialTheme.typography.bodyLarge
-            )
-            Text(
-                text = activity.description,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-            Text(
-                text = activity.period,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-        }
-    }
-}

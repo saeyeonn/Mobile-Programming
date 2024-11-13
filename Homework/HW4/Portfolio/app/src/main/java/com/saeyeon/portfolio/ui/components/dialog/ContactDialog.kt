@@ -1,4 +1,4 @@
-package com.saeyeon.portfolio
+package com.saeyeon.portfolio.ui.components.dialog
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row

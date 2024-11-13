@@ -1,11 +1,12 @@
-package com.saeyeon.portfolio
+package com.saeyeon.portfolio.ui.screens.awards
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -18,14 +19,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.saeyeon.portfolio.data.model.Award
+import com.saeyeon.portfolio.ui.components.card.AwardCard
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AboutScreen(navController: NavController) {
+fun AwardsScreen(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("About Me") },
+                title = { Text("Awards & Achievements") },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
                         Icon(Icons.Default.Star, contentDescription = "Back")
@@ -39,34 +42,33 @@ fun AboutScreen(navController: NavController) {
             )
         }
     ) { padding ->
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
-                .padding(16.dp)
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Card(
-                modifier = Modifier.fillMaxWidth(),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant
-                )
-            ) {
-                Column(
-                    modifier = Modifier.padding(16.dp)
-                ) {
-                    Text(
-                        text = "About Me",
-                        style = MaterialTheme.typography.titleLarge,
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(
-                        text = "I am a passionate Android developer with X years of experience...",
-                        style = MaterialTheme.typography.bodyLarge
-                    )
-                    // 추가 정보
-                }
+            items(awards) { award ->
+                AwardCard(award)
             }
         }
     }
 }
+
+
+// 샘플 데이터
+val awards = listOf(
+    Award(
+        "Best Mobile App Award",
+        "Android Developer Conference",
+        "2023",
+        "Received award for innovative mobile application development"
+    ),
+    Award(
+        "Innovation Prize",
+        "Tech Startup Competition",
+        "2022",
+        "First place in annual startup competition"
+    )
+)

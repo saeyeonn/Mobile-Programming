@@ -23,6 +23,15 @@ import androidx.compose.material3.rememberDrawerState
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Star
+import com.saeyeon.portfolio.ui.screens.about.AboutScreen
+import com.saeyeon.portfolio.ui.screens.activities.ActivitiesScreen
+import com.saeyeon.portfolio.ui.screens.awards.AwardsScreen
+import com.saeyeon.portfolio.ui.components.dialog.ContactDialog
+import com.saeyeon.portfolio.ui.screens.curriculum.CurriculumScreen
+import com.saeyeon.portfolio.ui.screens.education.EducationScreen
+import com.saeyeon.portfolio.ui.screens.profile.ProfileScreen
+import com.saeyeon.portfolio.ui.screens.projects.ProjectsScreen
+import com.saeyeon.portfolio.ui.screens.skills.SkillsScreen
 
 
 class MainActivity : ComponentActivity() {

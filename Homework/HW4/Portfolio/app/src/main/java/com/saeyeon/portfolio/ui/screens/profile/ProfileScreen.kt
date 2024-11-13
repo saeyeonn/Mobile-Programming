@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.saeyeon.portfolio.ui.components.item.CustomActivityItem
-import com.saeyeon.portfolio.ui.components.item.StatItem
+
 
 @Composable
 fun ProfileScreen(navController: NavController, onContactClick: () -> Unit) {
@@ -25,7 +25,6 @@ fun ProfileScreen(navController: NavController, onContactClick: () -> Unit) {
             .background(MaterialTheme.colorScheme.primary)
             .padding(16.dp)
     ) {
-        // Profile Image and Follow Button
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -33,7 +32,6 @@ fun ProfileScreen(navController: NavController, onContactClick: () -> Unit) {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Profile Image
             Card(
                 modifier = Modifier.size(100.dp),
                 shape = RoundedCornerShape(8.dp)
@@ -53,33 +51,8 @@ fun ProfileScreen(navController: NavController, onContactClick: () -> Unit) {
                     )
                 }
             }
-
-            // Follow Button
-            Button(
-                onClick = { /* TODO */ },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF4CAF50)
-                ),
-                shape = RoundedCornerShape(16.dp)
-            ) {
-                Text("Follow")
-            }
         }
-
-        // Stats Section
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 24.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            StatItem("6", "New Projects", "this month")
-            StatItem("4", "New Skills", "this week")
-        }
-
         Spacer(modifier = Modifier.height(24.dp))
-
-        // Activity Grid
         ActivityGrid(navController)
     }
 }
@@ -97,7 +70,7 @@ fun ActivityGrid(navController: NavController) {
         item {
             CustomActivityItem(
                 icon = Icons.Default.Star,
-                label = "Curriculum Vitae",
+                label = "Curriculum",
                 backgroundColor = Color(0xFFFFD700),
                 iconColor = Color.White,
                 onClick = { navController.navigate("curriculum") }
@@ -106,7 +79,7 @@ fun ActivityGrid(navController: NavController) {
         item {
             CustomActivityItem(
                 icon = Icons.Default.Star,
-                label = "Awards & Achievements",
+                label = "Awards",
                 backgroundColor = Color(0xFFFFA500),
                 iconColor = Color.White,
                 onClick = { navController.navigate("awards") }
@@ -115,7 +88,7 @@ fun ActivityGrid(navController: NavController) {
         item {
             CustomActivityItem(
                 icon = Icons.Default.Person,
-                label = "Skill Set",
+                label = "Skills",
                 backgroundColor = Color(0xFF4298F5),
                 iconColor = Color.White,
                 onClick = { navController.navigate("skills") }
@@ -124,7 +97,7 @@ fun ActivityGrid(navController: NavController) {
         item {
             CustomActivityItem(
                 icon = Icons.Default.Star,
-                label = "Other Activities & Interests",
+                label = "Activities & Interests",
                 backgroundColor = Color(0xFF4CAF50),
                 iconColor = Color.White,
                 onClick = { navController.navigate("activities") }

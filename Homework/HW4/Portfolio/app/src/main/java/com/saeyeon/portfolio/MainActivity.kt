@@ -8,6 +8,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -141,6 +142,21 @@ fun PortfolioApp() {
                     navigationIcon = {
                         IconButton(onClick = { scope.launch { drawerState.open() } }) {
                             Icon(Icons.Default.Menu, contentDescription = "Menu")
+                        }
+                    },
+                    actions = {
+                        IconButton(
+                            onClick = {
+                                navController.navigate("profile") {
+                                    popUpTo("profile") { inclusive = true }
+                                }
+                            }
+                        ) {
+                            Icon(
+                                Icons.Default.Home,
+                                contentDescription = "Home",
+                                tint = MaterialTheme.colorScheme.onPrimary
+                            )
                         }
                     },
                     colors = TopAppBarDefaults.topAppBarColors(

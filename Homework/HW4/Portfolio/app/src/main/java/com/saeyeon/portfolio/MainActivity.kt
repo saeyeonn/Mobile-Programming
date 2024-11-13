@@ -1,212 +1,165 @@
 package com.saeyeon.portfolio
 
+import androidx.compose.material3.DrawerValue
+import kotlinx.coroutines.launch
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.saeyeon.portfolio.ui.theme.PortfolioTheme
+import androidx.compose.material3.ModalDrawerSheet
+import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.NavigationDrawerItem
+import androidx.compose.material3.rememberDrawerState
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Star
 
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            PortfolioApp()
+        try {
+            setContent {
+                PortfolioTheme {
+                    PortfolioApp()
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            android.util.Log.e("MainActivity", "Error in onCreate: ", e)
         }
     }
 }
 
-
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PortfolioApp() {
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val navController = rememberNavController()
+    val scope = rememberCoroutineScope()
+    var showDialog by remember { mutableStateOf(false) }
 
-    MaterialTheme {
-        NavHost(navController = navController, startDestination = "profile") {
-            composable("profile") { ProfileScreen(navController) }
-            composable("education") { EducationScreen(navController) }
-            composable("projects") { ProjectsScreen(navController) }
+    ModalNavigationDrawer(
+        drawerState = drawerState,
+        drawerContent = {
+            ModalDrawerSheet {
+                Text(
+                    "Profile",
+                    modifier = Modifier.padding(16.dp),
+                    style = MaterialTheme.typography.titleLarge
+                )
+                Divider()
+                NavigationDrawerItem(
+                    label = { Text("About Me") },
+                    selected = false,
+                    onClick = {
+                        scope.launch {
+                            drawerState.close()
+                            navController.navigate("about")
+                        }
+                    },
+                    icon = { Icon(Icons.Default.Person, contentDescription = null) }
+                )
+                NavigationDrawerItem(
+                    label = { Text("Education") },
+                    selected = false,
+                    onClick = {
+                        scope.launch {
+                            drawerState.close()
+                            navController.navigate("education")
+                        }
+                    },
+                    icon = { Icon(Icons.Default.Star, contentDescription = null) }
+                )
+                NavigationDrawerItem(
+                    label = { Text("Projects") },
+                    selected = false,
+                    onClick = {
+                        scope.launch {
+                            drawerState.close()
+                            navController.navigate("projects")
+                        }
+                    },
+                    icon = { Icon(Icons.Default.Star, contentDescription = null) }
+                )
+
+                Divider()
+
+                Text(
+                    "Connect with Me",
+                    modifier = Modifier.padding(16.dp),
+                    style = MaterialTheme.typography.titleMedium
+                )
+                NavigationDrawerItem(
+                    label = { Text("Message") },
+                    selected = false,
+                    onClick = {
+                        scope.launch {
+                            drawerState.close()
+                            showDialog = true
+                        }
+                    },
+                    icon = { Icon(Icons.Default.Star, contentDescription = null) }
+                )
+                NavigationDrawerItem(
+                    label = { Text("Email") },
+                    selected = false,
+                    onClick = {
+                        scope.launch {
+                            drawerState.close()
+                            // 이메일 처리
+                        }
+                    },
+                    icon = { Icon(Icons.Default.Email, contentDescription = null) }
+                )
+            }
         }
-    }
-}
-
-@Composable
-fun ProjectsScreen(navController: NavHostController) {
-    TODO("Not yet implemented")
-}
-
-
-@Composable
-fun EducationScreen(navController: NavHostController) {
-    TODO("Not yet implemented")
-}
-
-
-@Composable
-fun ProfileScreen(navController: NavController) {
-    var showContactDialog by remember { mutableStateOf(false) }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
     ) {
-        // Profile Header
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)
-        ) {
-            Column(
-                modifier = Modifier.padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = { Text("My Portfolio") },
+                    navigationIcon = {
+                        IconButton(onClick = { scope.launch { drawerState.open() } }) {
+                            Icon(Icons.Default.Menu, contentDescription = "Menu")
+                        }
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        titleContentColor = MaterialTheme.colorScheme.onPrimary,
+                        navigationIconContentColor = MaterialTheme.colorScheme.onPrimary
+                    )
+                )
+            }
+        ) { padding ->
+            NavHost(
+                navController = navController,
+                startDestination = "profile",
+                modifier = Modifier.padding(padding)
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.profile_placeholder),
-                    contentDescription = "Profile Picture",
-                    modifier = Modifier.size(120.dp)
-                )
-                Text(
-                    text = "Saeyeon Lim",
-                    style = MaterialTheme.typography.headlineMedium
-                )
-                Text(
-                    text = "Spring Developer",
-                    style = MaterialTheme.typography.bodyLarge
-                )
+                composable("profile") { ProfileScreen(navController) { showDialog = true } }
+                composable("about") { AboutScreen(navController) }
+                composable("education") { EducationScreen(navController) }
+                composable("projects") { ProjectsScreen(navController) }
+                composable("curriculum") { CurriculumScreen(navController) }
+                composable("awards") { AwardsScreen(navController) }
+                composable("skills") { SkillsScreen(navController) }
+                composable("activities") { ActivitiesScreen(navController) }
             }
-        }
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 16.dp),
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-            StatisticItem(count = "6", label = "New Projects")
-            StatisticItem(count = "4", label = "New Skills")
-        }
-
-        // Activity Grid
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            contentPadding = PaddingValues(8.dp)
-        ) {
-            item {
-                ActivityItem(
-                    icon = Icons.Default.LocationOn,
-                    label = "Education",
-                    onClick = { navController.navigate("education") }
-                )
+            if (showDialog) {
+                ContactDialog { showDialog = false }
             }
-            item {
-                ActivityItem(
-                    icon = Icons.Default.Star,
-                    label = "Projects",
-                    onClick = { navController.navigate("projects") }
-                )
-            }
-            item {
-                ActivityItem(
-                    icon = Icons.Default.Person,
-                    label = "Skills",
-                    onClick = { /* Navigate to Skills */ }
-                )
-            }
-            item {
-                ActivityItem(
-                    icon = Icons.Default.Email,
-                    label = "Contact",
-                    onClick = { showContactDialog = true }
-                )
-            }
-        }
-    }
-
-    if (showContactDialog) {
-        AlertDialog(
-            onDismissRequest = { showContactDialog = false },
-            title = { Text("Contact Me") },
-            text = {
-                Column {
-                    Text("Email: dev.saeyeon@gamil.com")
-                    Text("Phone: +821092869157")
-                }
-            },
-            confirmButton = {
-                TextButton(onClick = { showContactDialog = false }) {
-                    Text("Close")
-                }
-            }
-        )
-    }
-}
-
-@Composable
-fun StatisticItem(count: String, label: String) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(8.dp)
-    ) {
-        Text(
-            text = count,
-            style = MaterialTheme.typography.headlineLarge
-        )
-        Text(
-            text = label,
-            style = MaterialTheme.typography.bodyMedium
-        )
-    }
-}
-
-@Composable
-fun ActivityItem(
-    icon: ImageVector,
-    label: String,
-    onClick: () -> Unit
-) {
-    Card(
-        modifier = Modifier
-            .padding(8.dp)
-            .clickable(onClick = onClick)
-    ) {
-        Column(
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Icon(
-                imageVector = icon,
-                contentDescription = label,
-                modifier = Modifier.size(48.dp)
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(text = label)
         }
     }
 }

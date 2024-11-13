@@ -1,0 +1,206 @@
+package com.saeyeon.portfolio
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.layout.Placeable
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ProjectsScreen(navController: NavController) {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Projects") },
+                navigationIcon = {
+                    IconButton(onClick = { navController.navigateUp() }) {
+                        Icon(Icons.Default.Star, contentDescription = "Back")
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    titleContentColor = MaterialTheme.colorScheme.onPrimary,
+                    navigationIconContentColor = MaterialTheme.colorScheme.onPrimary
+                )
+            )
+        }
+    ) { padding ->
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            // 프로젝트 아이템들을 여기에 추가
+            item {
+                ProjectCard(
+                    title = "Portfolio App",
+                    description = "A modern Android app built with Jetpack Compose",
+                    duration = "2023",
+                    technologies = listOf("Kotlin", "Jetpack Compose", "Material 3")
+                )
+            }
+            item {
+                ProjectCard(
+                    title = "E-commerce App",
+                    description = "Full-featured online shopping application",
+                    duration = "2022",
+                    technologies = listOf("Android", "Firebase", "REST API")
+                )
+            }
+        }
+    }
+}
+
+
+@Composable
+fun ProjectCard(
+    title: String,
+    description: String,
+    duration: String,
+    technologies: List<String>
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp),
+        shape = RoundedCornerShape(12.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant
+        )
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Text(
+                text = title,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.primary
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = description,
+                fontSize = 16.sp,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = duration,
+                fontSize = 14.sp,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            FlowRow(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                technologies.forEach { tech ->
+                    Chip(tech)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun Chip(text: String) {
+    Surface(
+        shape = RoundedCornerShape(16.dp),
+        color = MaterialTheme.colorScheme.primary.copy(alpha = 0.1f),
+        modifier = Modifier.padding(vertical = 4.dp)
+    ) {
+        Text(
+            text = text,
+            modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
+            fontSize = 12.sp,
+            color = MaterialTheme.colorScheme.primary
+        )
+    }
+}
+
+@Composable
+fun FlowRow(
+    modifier: Modifier = Modifier,
+    horizontalArrangement: Arrangement.Horizontal = Arrangement.Start,
+    content: @Composable () -> Unit
+) {
+    Layout(
+        content = content,
+        modifier = modifier
+    ) { measurables, constraints ->
+        val rows = mutableListOf<List<Placeable>>()
+        val rowWidths = mutableListOf<Int>()
+        val rowHeights = mutableListOf<Int>()
+
+        var currentRow = mutableListOf<Placeable>()
+        var currentRowWidth = 0
+        var currentRowHeight = 0
+
+        measurables.forEach { measurable ->
+            val placeable = measurable.measure(constraints)
+
+            if (currentRowWidth + placeable.width > constraints.maxWidth) {
+                rows.add(currentRow)
+                rowWidths.add(currentRowWidth)
+                rowHeights.add(currentRowHeight)
+
+                currentRow = mutableListOf()
+                currentRowWidth = 0
+                currentRowHeight = 0
+            }
+
+            currentRow.add(placeable)
+            currentRowWidth += placeable.width
+            currentRowHeight = maxOf(currentRowHeight, placeable.height)
+        }
+
+        if (currentRow.isNotEmpty()) {
+            rows.add(currentRow)
+            rowWidths.add(currentRowWidth)
+            rowHeights.add(currentRowHeight)
+        }
+
+        val totalHeight = rowHeights.sum()
+
+        layout(constraints.maxWidth, totalHeight) {
+            var y = 0
+            rows.forEachIndexed { index, row ->
+                var x = 0
+                row.forEach { placeable ->
+                    placeable.place(x, y)
+                    x += placeable.width
+                }
+                y += rowHeights[index]
+            }
+        }
+    }
+}

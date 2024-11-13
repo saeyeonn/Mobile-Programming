@@ -8,28 +8,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -61,7 +43,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
     getSearchResult: ActivityResultLauncher<Intent>,
@@ -70,12 +51,7 @@ fun MainScreen(
     var searchQuery by remember { mutableStateOf("") }
 
     Scaffold(
-        snackbarHost = { SnackbarHost(snackbarHostState) },
-        topBar = {
-            TopAppBar(
-                title = { Text("Search App") }
-            )
-        }
+        snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { padding ->
         Column(
             modifier = Modifier
@@ -85,32 +61,43 @@ fun MainScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
-            OutlinedTextField(
-                value = searchQuery,
-                onValueChange = { searchQuery = it },
-                label = { Text("Search") },
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth()
-            )
+            Spacer(modifier = Modifier.height(32.dp))
 
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Button(
-                onClick = {
-                    val searchIntent = Intent(Intent.ACTION_WEB_SEARCH).apply {
-                        putExtra(SearchManager.QUERY, searchQuery)
-                    }
-                    val chooserIntent = Intent.createChooser(
-                        searchIntent,
-                        "Complete action using"
-                    )
-                    getSearchResult.launch(chooserIntent)
-                },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF673AB7)  // Purple color from screenshot
-                )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Text("Search")
+                OutlinedTextField(
+                    value = searchQuery,
+                    onValueChange = { searchQuery = it },
+                    modifier = Modifier.weight(1f),
+                    singleLine = true,
+                    colors = OutlinedTextFieldDefaults.colors(
+                        unfocusedBorderColor = Color.Gray,
+                        focusedBorderColor = Color(0xFF673AB7)
+                    ),
+                    shape = RoundedCornerShape(4.dp)
+                )
+
+                Button(
+                    onClick = {
+                        val searchIntent = Intent(Intent.ACTION_WEB_SEARCH).apply {
+                            putExtra(SearchManager.QUERY, searchQuery)
+                        }
+                        val chooserIntent = Intent.createChooser(
+                            searchIntent,
+                            "Complete action using"
+                        )
+                        getSearchResult.launch(chooserIntent)
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFF673AB7)
+                    ),
+                    shape = RoundedCornerShape(24.dp)
+                ) {
+                    Text("Search")
+                }
             }
         }
     }

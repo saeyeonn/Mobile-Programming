@@ -28,7 +28,6 @@ import com.saeyeon.portfolio.ui.screens.about.AboutScreen
 import com.saeyeon.portfolio.ui.screens.activities.ActivitiesScreen
 import com.saeyeon.portfolio.ui.screens.awards.AwardsScreen
 import com.saeyeon.portfolio.ui.components.dialog.ContactDialog
-import com.saeyeon.portfolio.ui.screens.curriculum.CurriculumScreen
 import com.saeyeon.portfolio.ui.screens.education.EducationScreen
 import com.saeyeon.portfolio.ui.screens.profile.ProfileScreen
 import com.saeyeon.portfolio.ui.screens.projects.ProjectsScreen
@@ -87,17 +86,6 @@ fun PortfolioApp() {
                         scope.launch {
                             drawerState.close()
                             navController.navigate("education")
-                        }
-                    },
-                    icon = { Icon(Icons.Default.Star, contentDescription = null) }
-                )
-                NavigationDrawerItem(
-                    label = { Text("Projects") },
-                    selected = false,
-                    onClick = {
-                        scope.launch {
-                            drawerState.close()
-                            navController.navigate("projects")
                         }
                     },
                     icon = { Icon(Icons.Default.Star, contentDescription = null) }
@@ -176,7 +164,6 @@ fun PortfolioApp() {
                 composable("about") { AboutScreen(navController) }
                 composable("education") { EducationScreen(navController) }
                 composable("projects") { ProjectsScreen(navController) }
-                composable("curriculum") { CurriculumScreen(navController) }
                 composable("awards") { AwardsScreen(navController) }
                 composable("skills") { SkillsScreen(navController) }
                 composable("activities") { ActivitiesScreen(navController) }

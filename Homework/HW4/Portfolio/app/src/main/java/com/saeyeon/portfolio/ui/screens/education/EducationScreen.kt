@@ -47,17 +47,30 @@ fun EducationScreen(navController: NavController) {
                 .padding(16.dp)
         ) {
             EducationCard(
-                schoolName = "Graduate School",
-                degree = "Master of Computer Science",
-                year = "2020 - 2022",
-                grade = "GPA: 3.8"
+                schoolName = "NORTHUMBRIA UNIVERSITY",
+                degree = "Bachelor of ITMB",
+                year = "2023 - 2026"
             )
 
             EducationCard(
-                schoolName = "University",
-                degree = "Bachelor of Computer Science",
-                year = "2016 - 2020",
-                grade = "GPA: 3.9"
+                schoolName = "SEOUL NATIONAL UNIVERSITY OF SCIENCE AND TECHNOLOGY",
+                degree = "Bachelor of ITM",
+                year = "2021 - 2026"
+            )
+
+            EducationCard(
+                schoolName = "EWHA GIRLS' HIGH SCHOOL",
+                year = "2017 - 2020"
+            )
+
+            EducationCard(
+                schoolName = "YEOMCHANG MIDDLE SCHOOL",
+                year = "2014 - 2017"
+            )
+
+            EducationCard(
+                schoolName = "YEOMDONG ELEMENTARY SCHOOL",
+                year = "2008 - 2014"
             )
         }
     }

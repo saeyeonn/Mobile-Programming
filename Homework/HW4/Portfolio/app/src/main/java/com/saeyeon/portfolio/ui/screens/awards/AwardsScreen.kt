@@ -56,19 +56,23 @@ fun AwardsScreen(navController: NavController) {
     }
 }
 
-
-// 샘플 데이터
 val awards = listOf(
     Award(
-        "Best Mobile App Award",
-        "Android Developer Conference",
+        "IT SERVICE PLANNING CONTEST",
+        "ITM",
         "2023",
-        "Received award for innovative mobile application development"
+        "Received 2nd award for mobile application planning"
     ),
     Award(
-        "Innovation Prize",
-        "Tech Startup Competition",
+        "IT SERVICE PLANNING CONTEST",
+        "ITM",
         "2022",
-        "First place in annual startup competition"
+        "Received 3nd award for mobile application planning"
+    ),
+    Award(
+        "IT SERVICE DEVELOPMENT CONTEST",
+        "ITM",
+        "2022",
+        "Received 3nd award for mobile application development"
     )
 )

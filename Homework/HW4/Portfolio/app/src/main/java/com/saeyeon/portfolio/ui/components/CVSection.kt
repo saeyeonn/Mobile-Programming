@@ -1,4 +1,4 @@
-package com.saeyeon.portfolio.ui.screens.curriculum
+package com.saeyeon.portfolio.ui.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

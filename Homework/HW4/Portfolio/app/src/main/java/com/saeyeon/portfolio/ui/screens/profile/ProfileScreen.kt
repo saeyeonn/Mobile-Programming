@@ -70,10 +70,10 @@ fun ActivityGrid(navController: NavController) {
         item {
             CustomActivityItem(
                 icon = Icons.Default.Star,
-                label = "Curriculum",
+                label = "Projects",
                 backgroundColor = Color(0xFFFFD700),
                 iconColor = Color.White,
-                onClick = { navController.navigate("curriculum") }
+                onClick = { navController.navigate("projects") }
             )
         }
         item {

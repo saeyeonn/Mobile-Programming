@@ -69,6 +69,7 @@ fun EducationCard(
     schoolName: String,
     year: String,
 ) {
+    // Card layout
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -78,6 +79,7 @@ fun EducationCard(
             containerColor = MaterialTheme.colorScheme.surfaceVariant
         )
     ) {
+        // Column layout
         Column(
             modifier = Modifier.padding(16.dp)
         ) {

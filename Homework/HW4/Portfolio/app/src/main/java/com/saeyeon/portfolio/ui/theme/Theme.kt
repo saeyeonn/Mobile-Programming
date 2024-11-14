@@ -17,23 +17,28 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 
-private val md_theme_light_primary = Color(0xFF6750A4)
-private val md_theme_light_onPrimary = Color(0xFFFFFFFF)
-private val md_theme_light_secondary = Color(0xFF625B71)
-private val md_theme_light_onSecondary = Color(0xFFFFFFFF)
-private val md_theme_light_background = Color(0xFFFFFBFE)
-private val md_theme_light_onBackground = Color(0xFF1C1B1F)
-private val md_theme_light_surface = Color(0xFFFFFBFE)
-private val md_theme_light_onSurface = Color(0xFF1C1B1F)
+private val md_theme_light_primary = Color(0xFFFFFFFF)
+private val md_theme_light_onPrimary = Color(0xFF55808B)
+private val md_theme_light_secondary = Color(0xFFF3E5F5)
+private val md_theme_light_onSecondary = Color(0xFF9C27B0)
+private val md_theme_light_background = Color(0xFFFFFFFF)
+private val md_theme_light_onBackground = Color(0xFF000000)
+private val md_theme_light_surface = Color(0xFFFFFFFF)
+private val md_theme_light_onSurface = Color(0xFF00BCD4)
+private val md_theme_light_primaryContainer = Color(0xFFF5F5F5)
 
-private val md_theme_dark_primary = Color(0xFFD0BCFF)
-private val md_theme_dark_onPrimary = Color(0xFF381E72)
-private val md_theme_dark_secondary = Color(0xFFCCC2DC)
-private val md_theme_dark_onSecondary = Color(0xFF332D41)
-private val md_theme_dark_background = Color(0xFF1C1B1F)
-private val md_theme_dark_onBackground = Color(0xFFE6E1E5)
-private val md_theme_dark_surface = Color(0xFF1C1B1F)
-private val md_theme_dark_onSurface = Color(0xFFE6E1E5)
+private val md_theme_dark_primary = Color(0xFFE1F5FE)
+private val md_theme_dark_onPrimary = Color(0xFF0288D1)
+private val md_theme_dark_secondary = Color(0xFFE0F7FA)
+private val md_theme_dark_onSecondary = Color(0xFF00BCD4)
+private val md_theme_dark_background = Color(0xFFF8F9FA)
+private val md_theme_dark_onBackground = Color(0xFF000000)
+private val md_theme_dark_surface = Color(0xFFFFFFFF)
+private val md_theme_dark_onSurface = Color(0xFF000000)
+private val md_theme_dark_primaryContainer = Color(0xFFF5F5F5)
+
+val buttonsColor = Color(0xFF48708F)
+
 
 private val LightColorScheme = lightColorScheme(
     primary = md_theme_light_primary,

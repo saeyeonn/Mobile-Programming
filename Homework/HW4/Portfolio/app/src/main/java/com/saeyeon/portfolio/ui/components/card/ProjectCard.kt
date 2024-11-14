@@ -26,6 +26,7 @@ fun ProjectCard(
     duration: String,
     technologies: List<String>
 ) {
+    // Card layout
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -35,6 +36,7 @@ fun ProjectCard(
             containerColor = MaterialTheme.colorScheme.surfaceVariant
         )
     ) {
+        // Column layout
         Column(
             modifier = Modifier.padding(16.dp)
         ) {
@@ -57,6 +59,7 @@ fun ProjectCard(
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Spacer(modifier = Modifier.height(8.dp))
+            // FlowRow layout
             FlowRow(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)

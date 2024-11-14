@@ -1,11 +1,15 @@
 package com.saeyeon.portfolio.ui.screens.projects
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -18,6 +22,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.Placeable
 import androidx.compose.ui.unit.dp
@@ -29,46 +34,124 @@ import com.saeyeon.portfolio.ui.components.card.ProjectCard
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProjectsScreen(navController: NavController) {
+    // Material Design layout
     Scaffold(
         topBar = {
+            // title styling
             TopAppBar(
-                title = { Text("Projects") },
+                title = {
+                    Text(
+                        "Projects",
+                        style = MaterialTheme.typography.titleLarge,
+                        color = Color(0xFF55808B)
+                    )
+                },
+                // back button
                 navigationIcon = {
-                    IconButton(onClick = { navController.navigateUp() }) {
-                        Icon(Icons.Default.Star, contentDescription = "Back")
+                    IconButton(onClick = { navController.popBackStack() }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back",
+                            tint = Color(0xFF55808B)
+                        )
                     }
                 },
+                // app bar color
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimary,
-                    navigationIconContentColor = MaterialTheme.colorScheme.onPrimary
+                    containerColor = Color.White,
+                    navigationIconContentColor = Color(0xFF55808B)
                 )
             )
         }
     ) { padding ->
+        // LazyColumn for scrolling
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+                .padding(horizontal = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            // 프로젝트 아이템들을 여기에 추가
+            // Spacer for padding
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+
+            // ProjectCard for each project
             item {
                 ProjectCard(
-                    title = "Portfolio App",
-                    description = "A modern Android app built with Jetpack Compose",
+                    title = "STcord",
+                    description = "Discord Clone Project with MSA",
+                    duration = "In Progress",
+                    technologies = listOf("Java", "SpringBoot", "REST API", "MongoDB", "Postgresql", "Redis", "Socket", "AWS")
+                )
+            }
+
+            item {
+                ProjectCard(
+                    title = "On-Time",
+                    description = "Anti-Tardiness Meeting App",
+                    duration = "In Progress",
+                    technologies = listOf("Kotlin", "SpringBoot", "Android", "MySQL", "Firebase", "AWS")
+                )
+            }
+
+            item {
+                ProjectCard(
+                    title = "GDG on Campus WebApp",
+                    description = "An app for gdg on campus member activities and communication",
+                    duration = "In Progress",
+                    technologies = listOf("Java", "SpringBoot", "Postgresql", "Redis", "GCP", "Github Actions", "Docker")
+                )
+            }
+
+            item {
+                ProjectCard(
+                    title = "Portfolio Android App",
+                    description = "An app that introduces me",
+                    duration = "2024",
+                    technologies = listOf("Java", "SpringBoot", "MySQL", "Docker")
+                )
+            }
+
+            item {
+                ProjectCard(
+                    title = "QnA Website",
+                    description = "GDG Seoultech backend part session materials",
                     duration = "2023",
                     technologies = listOf("Kotlin", "Jetpack Compose", "Material 3")
                 )
             }
+
             item {
                 ProjectCard(
-                    title = "E-commerce App",
-                    description = "Full-featured online shopping application",
-                    duration = "2022",
-                    technologies = listOf("Android", "Firebase", "REST API")
+                    title = "Pure Plate",
+                    description = "A service to search for special restaurants",
+                    duration = "2023",
+                    technologies = listOf("Python", "Django", "Github Actions")
                 )
+            }
+
+            item {
+                ProjectCard(
+                    title = "Portfolio Website",
+                    description = "A website that introduces me",
+                    duration = "2023",
+                    technologies = listOf("HTML5", "CSS3", "Javascript")
+                )
+            }
+
+            item {
+                ProjectCard(
+                    title = "Seoultech Total Council App",
+                    description = "40th Seoultech Total Council App for students",
+                    duration = "2022",
+                    technologies = listOf("Java", "SpringBoot", "MySQL", "Redis", "AWS", "Jenkins", "Docker")
+                )
+            }
+
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
             }
         }
     }

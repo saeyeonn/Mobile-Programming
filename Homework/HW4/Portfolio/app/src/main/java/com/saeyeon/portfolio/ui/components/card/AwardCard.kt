@@ -18,12 +18,14 @@ import com.saeyeon.portfolio.data.model.Award
 
 @Composable
 fun AwardCard(award: Award) {
+    // Card layout
     Card(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant
         )
     ) {
+        // Column layout
         Column(
             modifier = Modifier.padding(16.dp)
         ) {

@@ -20,6 +20,7 @@ fun SkillCard(
     category: String,
     skills: List<Skill>
 ) {
+    // Card layout
     Card(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(

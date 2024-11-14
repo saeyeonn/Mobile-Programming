@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun ContactDialog(onDismiss: () -> Unit) {
+    // AlertDialog layout
     AlertDialog(
         onDismissRequest = onDismiss,
         title = {
@@ -33,24 +34,19 @@ fun ContactDialog(onDismiss: () -> Unit) {
                 style = MaterialTheme.typography.headlineSmall
             )
         },
+        // Column layout
         text = {
             Column {
                 ContactItem(
                     icon = Icons.Default.Email,
                     title = "Email",
-                    value = "example@email.com"
+                    value = "dev.saeyeon@gmail.com"
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 ContactItem(
                     icon = Icons.Default.Phone,
                     title = "Phone",
-                    value = "+82 10-1234-5678"
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                ContactItem(
-                    icon = Icons.Default.Star,
-                    title = "LinkedIn",
-                    value = "linkedin.com/in/example"
+                    value = "+82 10-9286-9157"
                 )
             }
         },
@@ -71,6 +67,7 @@ private fun ContactItem(
     title: String,
     value: String
 ) {
+    // Row layout
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.fillMaxWidth()
@@ -82,6 +79,7 @@ private fun ContactItem(
             modifier = Modifier.size(24.dp)
         )
         Spacer(modifier = Modifier.width(12.dp))
+        // Column layout
         Column {
             Text(
                 text = title,

@@ -29,18 +29,24 @@ fun CustomActivityItem(
     label: String,
     backgroundColor: Color,
     iconColor: Color,
+    textColor: Color = Color.Black,  // 기본값을 검정색으로 설정
     onClick: () -> Unit
 ) {
+    // Column layout
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .fillMaxWidth()
             .clickable(onClick = onClick)
+            .padding(8.dp)
     ) {
+        // Box layout
         Box(
             modifier = Modifier
                 .size(64.dp)
-                .background(backgroundColor, CircleShape),
+                .background(
+                    color = backgroundColor,
+                    shape = CircleShape
+                ),
             contentAlignment = Alignment.Center
         ) {
             Icon(
@@ -51,15 +57,12 @@ fun CustomActivityItem(
             )
         }
         Spacer(modifier = Modifier.height(8.dp))
+        // Text label
         Text(
             text = label,
-            color = Color.White,
-            fontSize = 14.sp,
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.bodyMedium.copy(
-                fontWeight = FontWeight.Normal
-            ),
-            modifier = Modifier.padding(top = 4.dp)
+            color = textColor,
+            style = MaterialTheme.typography.bodyMedium,
+            textAlign = TextAlign.Center
         )
     }
 }

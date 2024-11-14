@@ -11,10 +11,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.saeyeon.portfolio.data.model.Activity
+import com.saeyeon.portfolio.data.model.Interest
 
 @Composable
-fun ActivityItem(activity: Activity) {
+fun InterestItem(activity: Interest) {
+    // Row layout
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
@@ -29,16 +30,6 @@ fun ActivityItem(activity: Activity) {
             Text(
                 text = activity.title,
                 style = MaterialTheme.typography.bodyLarge
-            )
-            Text(
-                text = activity.description,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-            Text(
-                text = activity.period,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
     }

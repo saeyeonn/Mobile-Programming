@@ -17,6 +17,7 @@ import com.saeyeon.portfolio.data.model.Skill
 
 @Composable
 fun SkillItem(skill: Skill) {
+    // Column layout
     Column {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -33,6 +34,7 @@ fun SkillItem(skill: Skill) {
             )
         }
         Spacer(modifier = Modifier.height(4.dp))
+        // LinearProgressIndicator for skill proficiency
         LinearProgressIndicator(
             progress = skill.proficiency / 100f,
             modifier = Modifier
